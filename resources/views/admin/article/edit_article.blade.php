@@ -16,7 +16,7 @@
             <div class="card border-0 shadow-lg">
                 <div class="card-body">
                     <form action="category/edit" method="post" enctype="multipart/form-data">
-
+                        @csrf
                         <div class="form-group">
                             <select class="form-control" name="post_category_id" >
                             <option>Pilih Kategori</option>

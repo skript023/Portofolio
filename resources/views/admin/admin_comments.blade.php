@@ -1,4 +1,4 @@
-@extends('template_helper.template_helper')
+@extends('admin.template_helper.template_helper')
 @section('title', 'Comments Manager')
 
 @section('content')
@@ -25,15 +25,15 @@
                         <tbody>
                             @foreach($comments as $comment)
                                 <tr>
-                                    <td>{{ $comment->title }}</td>
-                                    <td>{{ $comment->name }}</td>
-                                    <td>{{ $comment->email }}</td>
-                                    <td>{{ $comment->description }}</td>
+                                    <td>{{ $comment->article_comment->post_title }}</td>
+                                    <td>{{ $comment->comment_name }}</td>
+                                    <td>{{ $comment->comment_email }}</td>
+                                    <td>{{ $comment->comment_description }}</td>
                                     <td>
                                         @if ($comment->comment_status == 'unapproved')
-                                            <a href='/comments?approved={$comment->id_comments}' class='btn btn-primary'>Approved</a>
+                                            <a href='' class='btn btn-primary'>Approved</a>
                                         @else 
-                                            <a href='/comments?unapproved={$comment->id_comments}' class='btn btn-danger'>Unapproved</a>
+                                            <a href='' class='btn btn-danger'>Unapproved</a>
                                         @endif
                                     </td>
                                 </tr>

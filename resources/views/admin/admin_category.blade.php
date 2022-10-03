@@ -1,4 +1,4 @@
-@extends('template_helper.template_helper')
+@extends('admin.template_helper.template_helper')
 @section('title', 'Category Manager')
 
 @section('content')
@@ -19,12 +19,10 @@
                             <button type="submit" name="add_category" class="btn btn-primary btn-block">Add Category</button>
                         </div>
                     </form>
-                    <?php 
-                    if(isset($_GET['edit']))
-                    {
-                        include 'includes/category/edit.php'; 
-                    }
-                    ?>
+                    {{-- Alternative @if ($data_id = app('request')->input('edit')) --}}
+                    @if ($data_id = request()->edit)
+                        @include('admin.category.edit')
+                    @endif
                 </div>
             </div>
         </div>
@@ -40,12 +38,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach($categories as $category)
+                            @foreach($category as $cate)
                                 <tr>
-                                <td>{{ $category->category_name }}</td>
+                                <td>{{ $cate->category_name }}</td>
                                 <td>
-                                    <a href="{{ '/category/?edit=' . $category->id_category }}" class="btn btn-warning">Update</a>
-                                    <a href="{{ '/category/?delete=' . $category->id_category }}" class="btn btn-danger">Delete</a>
+                                    <a href={{ '/category?edit=' . $cate->id_category }} class="btn btn-warning">Update</a>
+                                    <a href={{ '/category?delete=' . $cate->id_category }} class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

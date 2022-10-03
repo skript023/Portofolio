@@ -21,5 +21,12 @@ class comment extends Model
         'comment_status'
     ];
 
-    
+    protected $casts = [
+        'comment_date' => 'datetime',
+    ];
+
+    public function article_comment()
+    {
+        return $this->hasOne(post::class, 'id_post', 'comment_post_id');
+    }
 }

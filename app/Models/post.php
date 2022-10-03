@@ -10,9 +10,10 @@ class post extends Model
     use HasFactory;
 
     public $timestamps = false;
+    protected $primaryKey = 'id_post';
 
     protected $fillable = [
-        'id_posts',
+        'id_post',
         'post_id_user',
         'post_title',
         'post_image',
@@ -34,6 +35,6 @@ class post extends Model
 
     public function article_comment()
     {
-        return $this->hasOne(comment::class, 'comment_post_id', 'id_posts');
+        return $this->hasMany(comment::class, 'comment_post_id', 'id_post');
     }
 }

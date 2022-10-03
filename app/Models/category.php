@@ -20,6 +20,6 @@ class category extends Model
 
     public function article_category()
     {
-        return $this->hasOne(category::class, 'post_category_id', 'id_category');
+        return $this->hasOne(category::class, 'id_category', 'post_category_id');
     }
 }

@@ -1,8 +1,8 @@
-@extends('front_end_helper.front_end')
+@extends('front_end_helper.default_front_end')
 @section('title', 'About')
 @section('artikel')
 
-<section class="jumbotron text-center">
+<section class="jumbotron text-center mt-5 my-5">
     <img src="img/Foto.jpg" class="img-fluid mx-auto rounded-circle" style="width: 200px; Height:250px;" alt="Fatur Muhammad">
     <h1 class="display-4">Fatur Muhammad</h1>
     <p class="lead">Beginner Web Designer</p>
