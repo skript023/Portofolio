@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\category;
+use App\Models\comment;
 use App\Models\post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -33,6 +34,26 @@ class PostController extends Controller
         else
         {
             return '<div class="alert alert-danger" role="alert"> Belum Ada Artikel </div>';
+        }
+    }
+
+    public function read_more(Request $request)
+    {
+        $read_more = $request->route('readmore');
+
+        if (isset($read_more))
+        {
+            if (isset($category_id))
+            {
+                return view('post_category', [
+                    'category' => comment::where('comment_post_id', $read_more)->where('comment_status', 'approved')->get(),
+                    'posts' => post::where('id_post', $read_more)->simplePaginate(6)
+                ]);
+            }
+            else
+            {
+                return '<div class="alert alert-danger" role="alert"> Belum Ada Artikel </div>';
+            }
         }
     }
 }
