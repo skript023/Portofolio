@@ -43,17 +43,35 @@ class PostController extends Controller
 
         if (isset($read_more))
         {
-            if (isset($category_id))
-            {
-                return view('post_category', [
-                    'category' => comment::where('comment_post_id', $read_more)->where('comment_status', 'approved')->get(),
-                    'posts' => post::where('id_post', $read_more)->simplePaginate(6)
-                ]);
-            }
-            else
-            {
-                return '<div class="alert alert-danger" role="alert"> Belum Ada Artikel </div>';
-            }
+            return view('read_more', [
+                'comments' => comment::where('comment_post_id', $read_more)->where('comment_status', 'approved')->get(),
+                'posts' => post::where('id_post', $read_more)->get()
+            ]);
+        }
+        else
+        {
+            return '<div class="alert alert-danger" role="alert"> Belum Ada Artikel </div>';
+        }
+    }
+
+    public function comment_article(Request $request)
+    {
+        $request->validate(['comment_name' => 'required', 'comment_email' => 'required', 'comment_description' => 'required']);
+
+        $data = $request->only(['comment_name', 'comment_email', 'comment_description']);
+
+        $data['comment_date'] = now();
+        $data['comment_post_id'] = $request->input('readmore');
+
+        try 
+        {
+            comment::create($data);
+            return back();
+        }
+        catch (\Throwable $th) 
+        {
+            dd($th);
+            return back();
         }
     }
 }

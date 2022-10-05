@@ -1,10 +1,10 @@
-@extends('front_end_helper.front_end')
+@extends('front_end_helper.default_front_end')
 @section('artikel')
 
-<div class="class container">
+<div class="container">
     <div class="row mt-5">
         <div class="col-md-12 mt-5">
-            <h1>Post By Category <b>{{--$posts->category_name--}}</b></h1>
+            <h1>Post By Category <b>{{$category[0]->category_name}}</b></h1>
         </div>
     </div>
 </div>

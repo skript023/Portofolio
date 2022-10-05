@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 //Home
 Route::get('/', [PostController::class, 'index']);
+Route::get('/read/{readmore}', [PostController::class, 'read_more']);
 Route::get('/categories/{category}', [PostController::class, 'post_by_category']);
 Route::get('/dashboard', [UserController::class, 'dashboard'])->middleware('auth');
 
@@ -48,6 +49,7 @@ Route::post('/register', [UserController::class, 'add_user']);
 
 //comments
 Route::get('/comments', [CommentController::class, 'index']);
+Route::get('/comment', [PostController::class, 'comment_article']);
 
 //About
 Route::get('/about', fn() => view('about'));

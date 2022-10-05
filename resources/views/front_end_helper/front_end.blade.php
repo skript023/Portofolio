@@ -11,10 +11,10 @@
   <title>External View</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{asset('vendor')}}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/blog-home.css" rel="stylesheet">
+  <link href="{{asset('vendor')}}/blog-home.css" rel="stylesheet">
 
 </head>
 
@@ -39,7 +39,7 @@
             <a class="nav-link" href="#">Services</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="/contact">Contact</a>
           </li>
         </ul>
       </div>
@@ -148,8 +148,8 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="{{asset('vendor')}}/jquery/jquery.min.js"></script>
+  <script src="{{asset('vendor')}}/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
