@@ -9,10 +9,12 @@
             <div class="card border-0 shadow-lg">
                 <div class="card-body">
                     <h3 class="card-title">Form Add Category</h3>
-                    <form method="post">
+                    <br>
+                    <form action="/dashboard/category/add" method="post">
+                        @csrf
                         <div class="form-group">
                             <label>Category Name</label>
-                            <input type="text" name="category_name" class="form-control" placeholder="input nama kategori">
+                            <input type="text" name="category_name" class="form-control" placeholder="input nama kategori" required>
                         </div>
                         
                         <div class="form-group">
@@ -38,12 +40,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach($category as $cate)
+                            @foreach ($categories as $category)
                                 <tr>
-                                <td>{{ $cate->category_name }}</td>
+                                <td>{{ $category->category_name }}</td>
                                 <td>
-                                    <a href={{ '/category?edit=' . $cate->id_category }} class="btn btn-warning">Update</a>
-                                    <a href={{ '/category?delete=' . $cate->id_category }} class="btn btn-danger">Delete</a>
+                                    <a href={{ '/dashboard/category?edit=' . $category->id_category }} class="btn btn-warning">Update</a>
+                                    <a href={{ '/dashboard/category?delete=' . $category->id_category }} class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

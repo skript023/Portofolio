@@ -35,18 +35,25 @@ class UserController extends Controller
             if (Auth::attempt($credentials)) 
             {
                 $request->session()->regenerate();
-                //dd($auth);
                 return redirect()->intended('/dashboard');
             }
         }
         catch (\Throwable $th) 
         {
             dd($th);
-            return redirect('/login');
-            // back()->withErrors([
-            //     'username' => 'The provided credentials do not match our records.',
-            // ]);
+            return back()->withErrors([
+                    'username' => 'The provided credentials do not match our records.',
+                ]);
         }
+    }
+
+    public function is_login()
+    {
+        if (isset(auth()->user()->user_position))
+        {
+            return true;
+        }
+        return false;
     }
 
     public function add_user(Request $request)
@@ -80,17 +87,72 @@ class UserController extends Controller
             dd($th);
             return redirect()->back();
         }
-
     }
 
-    public function delete_user()
+    public function view_user()
     {
-        
+        return view('admin.users_management', [
+            'users' => user::all(),
+        ]);
     }
 
-    public function update_user()
+    public function delete_user(Request $request)
     {
+        $user = user::find($request->delete);
+        if (isset($user))
+        {
+            $user->delete();
+        }
+        else
+        {
+            return '<div class="alert alert-danger" role="alert"> User tidak ditemukan </div>';
+        }
+    }
 
+    public function update_user(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'required', 
+            'last_name' => 'required',
+            'username' => 'required',
+            'email' => 'required:|email:dns', 
+            'password' => 'required'
+        ]);
+
+        $data = $request->only([
+            'first_name', 
+            'last_name',
+            'username', 
+            'email',
+            'password',
+            'user_image'
+        ]);
+
+        $user = user::find($request->id_user);
+
+        if (isset($request->user))
+        {
+            $user->update($data);
+            return redirect('/dashboard/user');
+        }
+        else
+        {
+            return '<div class="alert alert-danger" role="alert"> User tidak ditemukan </div>';
+        }
+    }
+
+    public function profile()
+    {
+        if (auth()->user() !== null)
+        {
+            return view('admin.user_profile', [
+                'user' => auth()->user()
+            ]);
+        }
+        else
+        {
+            return '<div class="alert alert-danger" role="alert"> Autentikasi gagal </div>';
+        }
     }
 
     public function banned_user()

@@ -30,12 +30,20 @@ Route::get('/read/{readmore}', [PostController::class, 'read_more']);
 Route::get('/categories/{category}', [PostController::class, 'post_by_category']);
 Route::get('/dashboard', [UserController::class, 'dashboard'])->middleware('auth');
 
+Route::get('/dashboard/article', [PostController::class, 'user_articles']);
+Route::post('/dashboard/article', [PostController::class, 'search_article']);
+
+Route::get('/dashboard/user', [UserController::class, 'view_user']);
+Route::get('/dashboard/profile', [UserController::class, 'profile']);
+Route::post('/dashboard/user/add', [UserController::class, 'add_user']);
+
 //Category
-Route::get('/category', [CategoryController::class, 'index']);
-Route::get('/category/{edit}', [CategoryController::class, 'category_edit']);
+Route::get('/dashboard/category', [CategoryController::class, 'index']);
+Route::post('/dashboard/category/add', [CategoryController::class, 'add_category']);
+Route::post('/dashboard/category/edit/{edit_id}', [CategoryController::class, 'category_edit']);
 
 //Contact
-Route::get('/contact', [ContactController::class, 'admin_contact_manager'])->middleware('auth');
+Route::get('/dashboard/contact', [ContactController::class, 'admin_contact_manager'])->middleware('auth');
 Route::get('/contact', fn() => view('contact'));
 Route::post('/contact', [ContactController::class, 'contact_developer']);
 

@@ -1,4 +1,4 @@
-@extends('template_helper.template_helper')
+@extends('admin.template_helper.template_helper')
 @section('title', 'Contact Manager')
 
 @section('content')

@@ -10,22 +10,52 @@ class CategoryController extends Controller
     public function index()
     {
         return view('admin.admin_category', [
-            'category' => category::with('article_category')->get(),
+            'categories' => category::all(),
         ]);
     }
     
     public function category_edit(Request $request)
     {
-        $category_id = $request->route('edit');
+        $request->validate([
+            'category_name' => 'required'
+        ]);
 
-        if (isset($category_id))
+        $data = $request->only([
+            'category_name'
+        ]);
+
+        $category = category::find($request->edit_id);
+
+        if (isset($category))
         {
-            category::where('id_category', $category_id)->update(['category_name' => $request->category_name]);
-            return redirect('/category');
+            $category->update($data);
+            return redirect('/dashboard/category');
         }
         else
         {
             return '<div class="alert alert-danger" role="alert"> Belum Ada Category </div>';
+        }
+    }
+
+    public function add_category(Request $request)
+    {
+        $request->validate([
+            'category_name' => 'required'
+        ]);
+
+        $data = $request->only([
+            'category_name'
+        ]);
+
+        try 
+        {
+            category::create($data);
+            return redirect('/dashboard/category');
+        } 
+        catch (\Throwable $th) 
+        {
+            dd($th);
+            return redirect()->back();
         }
     }
 }

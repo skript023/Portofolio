@@ -22,7 +22,7 @@ class PostController extends Controller
 
     public function post_by_category(Request $request)
     {
-        $category_id = $request->route('category');
+        $category_id = $request->category;
 
         if (isset($category_id))
         {
@@ -72,6 +72,26 @@ class PostController extends Controller
         {
             dd($th);
             return back();
+        }
+    }
+
+    public function user_articles()
+    {
+        if (auth()->user() !== null)
+        {
+            return view('admin.admin_article', [
+                'posts' => post::with(['article_creator', 'article_category'])->simplePaginate(8)
+            ]);
+        }
+    }
+
+    public function search_article(Request $request)
+    {
+        if (isset($request->post_title))
+        {
+            return view('admin.admin_article', [
+                'search' => post::with(['article_creator', 'article_category'])->where('post_title', $request->post_title)->get()
+            ]);
         }
     }
 }

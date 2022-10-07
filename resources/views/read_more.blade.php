@@ -1,4 +1,4 @@
-@extends('front_end_helper.default_front_end')
+@extends('front_end_helper.front_end')
 @section('artikel')
 
 <div class="container-fluid">

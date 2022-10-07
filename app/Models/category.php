@@ -10,6 +10,7 @@ class category extends Model
     use HasFactory;
     
     protected $table = "category";
+    protected $primaryKey = 'id_category';
 
     public $timestamps = false;
 

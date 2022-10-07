@@ -14,7 +14,7 @@ class ContactController extends Controller
     
     public function admin_contact_manager()
     {
-        return view('admin.contacts', [
+        return view('admin.admin_contacts', [
             'contacts' => contact::all(),
         ]);
     }

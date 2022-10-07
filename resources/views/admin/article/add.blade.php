@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <div class="card boarder-0 shadow-lg">
                 <div class="card-body">
-                <form method="post" enctype="multipart/form-data">
+                <form action= "/article/add" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <select class="form-control" name="post_category_id" >
                         <option>Pilih Kategori</option>

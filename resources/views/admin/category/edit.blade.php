@@ -1,7 +1,12 @@
-<form action="/category/{{$data_id}}" method="get">
+<form action="/dashboard/category/edit/{{$data_id}}" method="post">
+    @csrf
     <div class="form-group">
         <label>Update Category Name</label>
-        <input type="text" class="form-control" name="category_name" value="{{ $category[$data_id - 1]->category_name }}">
+        @foreach ($categories as $category)
+            @if ($category->id_category === $data_id)
+                <input type="text" class="form-control" name="category_name" value="{{ $category->category_name }}" required>
+            @endif
+        @endforeach
     </div>
 
     <div class="form-group">
