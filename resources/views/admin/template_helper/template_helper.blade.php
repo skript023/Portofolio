@@ -189,7 +189,7 @@
             <img src="{{asset('profile') . '/' . auth()->user()->user_image}}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">{{ auth()->user()->username }}</a>
+            <a href="/dashboard/profile" class="d-block">{{ auth()->user()->username }}</a>
           </div>
         </div>
 

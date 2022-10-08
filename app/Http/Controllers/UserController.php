@@ -49,11 +49,22 @@ class UserController extends Controller
 
     public function is_login()
     {
-        if (isset(auth()->user()->user_position))
+        if (auth()->check())
         {
             return true;
         }
         return false;
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+    
+        $request->session()->invalidate();
+    
+        $request->session()->regenerateToken();
+    
+        return redirect('/');
     }
 
     public function add_user(Request $request)
@@ -91,21 +102,27 @@ class UserController extends Controller
 
     public function view_user()
     {
-        return view('admin.users_management', [
-            'users' => user::all(),
-        ]);
+        if ($this->is_login())
+        {
+            return view('admin.users_management', [
+                'users' => user::all(),
+            ]);
+        }
     }
 
     public function delete_user(Request $request)
     {
         $user = user::find($request->delete);
-        if (isset($user))
+        if ($this->is_login())
         {
-            $user->delete();
-        }
-        else
-        {
-            return '<div class="alert alert-danger" role="alert"> User tidak ditemukan </div>';
+            if (isset($user))
+            {
+                $user->delete();
+            }
+            else
+            {
+                return '<div class="alert alert-danger" role="alert"> User tidak ditemukan </div>';
+            }
         }
     }
 
@@ -130,20 +147,23 @@ class UserController extends Controller
 
         $user = user::find($request->id_user);
 
-        if (isset($request->user))
+        if ($this->is_login())
         {
-            $user->update($data);
-            return redirect('/dashboard/user');
-        }
-        else
-        {
-            return '<div class="alert alert-danger" role="alert"> User tidak ditemukan </div>';
+            if (isset($request->user))
+            {
+                $user->update($data);
+                return redirect('/dashboard/user');
+            }
+            else
+            {
+                return '<div class="alert alert-danger" role="alert"> User tidak ditemukan </div>';
+            }
         }
     }
 
     public function profile()
     {
-        if (auth()->user() !== null)
+        if ($this->is_login())
         {
             return view('admin.user_profile', [
                 'user' => auth()->user()

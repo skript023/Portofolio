@@ -61,12 +61,13 @@ class PostController extends Controller
         $data = $request->only(['comment_name', 'comment_email', 'comment_description']);
 
         $data['comment_date'] = now();
-        $data['comment_post_id'] = $request->input('readmore');
+        $data['comment_post_id'] = $request->readmore;
+        $data['comment_status'] = 'approved';
 
         try 
         {
             comment::create($data);
-            return back();
+            return redirect('/read'. '/' . $request->readmore);
         }
         catch (\Throwable $th) 
         {
@@ -77,7 +78,7 @@ class PostController extends Controller
 
     public function user_articles()
     {
-        if (auth()->user() !== null)
+        if (auth()->check())
         {
             return view('admin.admin_article', [
                 'posts' => post::with(['article_creator', 'article_category'])->simplePaginate(8)

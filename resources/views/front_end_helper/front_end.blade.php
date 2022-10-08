@@ -44,8 +44,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
-
+    <div class="container mt-5">
         <div class="row">
             <!-- Blog Entries Column -->
             <div class="{{ request()->is('/') ? 'col-md-8' : 'col-md-12'}}">
@@ -75,28 +74,28 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <ul class="list-unstyled mb-0">
-                            <li>
-                                <a href="#">Web Design</a>
-                            </li>
-                            <li>
-                                <a href="#">HTML</a>
-                            </li>
-                            <li>
-                                <a href="#">Freebies</a>
-                            </li>
+                                <li>
+                                    <a href="#">Web Design</a>
+                                </li>
+                                <li>
+                                    <a href="#">HTML</a>
+                                </li>
+                                <li>
+                                    <a href="#">Freebies</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-lg-6">
                             <ul class="list-unstyled mb-0">
-                            <li>
-                                <a href="#">JavaScript</a>
-                            </li>
-                            <li>
-                                <a href="#">CSS</a>
-                            </li>
-                            <li>
-                                <a href="#">Tutorials</a>
-                            </li>
+                                <li>
+                                    <a href="#">JavaScript</a>
+                                </li>
+                                <li>
+                                    <a href="#">CSS</a>
+                                </li>
+                                <li>
+                                    <a href="#">Tutorials</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -119,7 +118,7 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="py-5 bg-dark mt-5">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
     </div>

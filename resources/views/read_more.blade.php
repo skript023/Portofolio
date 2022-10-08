@@ -5,7 +5,7 @@
     <div class="row">
         @foreach($posts as $post)
             <div class="col-md-4 mt-5">
-                <img src="image" alt="image" class="card-img-top img-fluid">
+                <img src="{{ asset('profile') . '/' . $post->post_image }}" alt="image" class="card-img-top img-fluid">
             </div>
             <div class="col-md-8 mt-5">
                 <div class="card">
@@ -24,18 +24,19 @@
     <hr>
     <div class="row">
         <div class="col-md-6 mt-3">
-            <form action="/comment" method="post">
+            <form action="/comment/{{ request()->readmore }}" method="post">
+                @csrf
                 <div class="form-group">
                     <label>Nama</label>
-                    <input type="text" class="form-control" name="comment_name">
+                    <input type="text" class="form-control" name="comment_name" required>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" class="form-control" name="comment_email">
+                    <input type="email" class="form-control" name="comment_email" required>
                 </div>
                 <div class="form-group">
                     <label>Comment</label>
-                    <textarea class="form-control" cols="30" rows="10" name="comment_description"></textarea>
+                    <textarea class="form-control" cols="30" rows="10" name="comment_description" required></textarea>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" type="submit" name="add_comment">Submit</button>
