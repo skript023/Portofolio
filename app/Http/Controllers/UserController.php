@@ -18,7 +18,7 @@ class UserController extends Controller
             'user_status' => User::select('user_status')->get(),
             'creation_date' => User::select('user_date')->get(),
             'user_image' => User::select('user_image')->get(),
-            //'total_user' => User::select('username')->get()->sum('username')
+            'total_user' => User::select('username')->get()->sum('username')
         ]);
     }
 
@@ -32,7 +32,7 @@ class UserController extends Controller
         $credentials = $request->only(['username', 'password']);
         try
         {
-            if (Auth::attempt($credentials)) 
+            if (Auth::attempt($credentials, $request->remember)) 
             {
                 $request->session()->regenerate();
                 return redirect()->intended('/dashboard');
@@ -42,8 +42,8 @@ class UserController extends Controller
         {
             dd($th);
             return back()->withErrors([
-                    'username' => 'The provided credentials do not match our records.',
-                ]);
+                'username' => 'The provided credentials do not match our records.',
+            ]);
         }
     }
 

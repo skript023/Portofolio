@@ -81,8 +81,8 @@
                                         <label for="ForPassword">Password</label>
                                         <input type="password" name="password" class="form-control mt-2 mb-3" placeholder="input password" id="ForPassword">
                                         
-                                        <input type="checkbox" value="forever" id="rememberme" name="rememberme">
-                                        <label class="custom-control-label" for="rememberme">Remember Me</label>
+                                        <input type="checkbox" value="forever" id="remember" name="remember">
+                                        <label class="custom-control-label" for="remember">Remember Me</label>
                                         <br>
                                         <button type="submit" class="btn btn-primary btn-block mt-5" name="login">Login</button>
                                     </div>
@@ -90,7 +90,7 @@
                                 <a class="mt-5" href="forgot.php?forgot=<?php echo uniqid(true)?>">Lupa Password ?</a>
                                 <br>
                                 @if (!auth()->check())
-                                <a class="mt-5" href="register.php">Register</a>
+                                <a class="mt-5" href="/register">Register</a>
                                 @endif
                             @else
                                 <div class="container">
