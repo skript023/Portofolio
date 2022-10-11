@@ -2,12 +2,7 @@
 @section('title', 'Articles Manager')
 
 @section('content')
-    @if (request()->page)
-        {{ $page = request()->page }}
-    @else
-        {{ $page = '' }}
-    @endif
-    @switch($page)
+    @switch(request()->page)
         @case ('add')
             @include('admin.article.add')
         @break

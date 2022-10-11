@@ -27,18 +27,95 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link" href="/about">About</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
+                        <a class="nav-link" href="/contact">Contact</a>
                     </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Category
+                        </a>
+                        <ul class="dropdown-menu  dropdown-menu-end">
+                        <li>
+                            <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @foreach($categories as $category)
+                                        <a href="/categories/={{ $category->id_category }}" class="dropdown-item">
+                                            {{ $category->category_name }}
+                                        </a>
+                                    @endforeach
+                                    <a href="/categories" class="dropdown-item">
+                                    List All Category
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+                        </li>
+                        </ul>
                     </li>
                 </ul>
+            </div>
+
+            <div class="collapse navbar-collapse justify-content-sm-end px-1 mx-1" id="navbarResponsive">
+                <li class="navbar-nav ml-auto nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ auth()->check() ? auth()->user()->username : 'Login' }}
+                </a>
+                <ul class="dropdown-menu  dropdown-menu-end">
+                <li>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                            @if (!auth()->check())
+                                <form class="navbar-form" method="post" action="/login">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label label for="ForUsername">Username</label>
+                                        <input type="text" name="username" class="form-control mt-2 mb-3" placeholder="input username" id="ForUsername">
+                                    
+                                        <label for="ForPassword">Password</label>
+                                        <input type="password" name="password" class="form-control mt-2 mb-3" placeholder="input password" id="ForPassword">
+                                        
+                                        <input type="checkbox" value="forever" id="rememberme" name="rememberme">
+                                        <label class="custom-control-label" for="rememberme">Remember Me</label>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary btn-block mt-5" name="login">Login</button>
+                                    </div>
+                                </form>
+                                <a class="mt-5" href="forgot.php?forgot=<?php echo uniqid(true)?>">Lupa Password ?</a>
+                                <br>
+                                @if (!auth()->check())
+                                <a class="mt-5" href="register.php">Register</a>
+                                @endif
+                            @else
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-10">
+                                            @if (!empty(auth()->user()->user_image))
+                                                <img class="img-thumbnail rounded-circle mt-3 mb-5" src="{{ asset('profile') . '/' . auth()->user()->user_image }}">
+                                            @else
+                                                <img class="img-thumbnail rounded-circle mt-3 mb-5" src="https://ui-avatars.com/api/>name{{ auth()->user()->username }}">
+                                            @endif
+                                            <div class="d-grid gap-3 col-12 mx-auto">
+                                                <a href="/dashboard/profile" class="btn btn-primary btn-block">Profile</a>
+                                                <a href="/dashboard" class="btn btn-primary btn-block">Dashboard</a>
+                                                <a href="/logout" class="btn btn-outline-danger btn-block"> Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                </ul>
+            </li>
             </div>
         </div>
     </nav>
@@ -52,7 +129,7 @@
         </div>
 
     <!-- Sidebar Widgets Column -->
-    @if (request()->is('/') || request()->is('/home'))
+        @if (request()->is('/') || request()->is('/home'))
         <div class="col-md-4">
             <!-- Search Widget -->
             <div class="card my-4">
@@ -110,7 +187,7 @@
                 </div>
             </div>
         </div>
-    @endif
+        @endif
     </div>
     <!-- /.row -->
 
@@ -126,8 +203,9 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="{{asset('vendor')}}/jquery/jquery.min.js"></script>
+    <script src="{{asset('vendor')}}/jquery/jquery-3.6.0.min.js"></script>
     <script src="{{asset('vendor')}}/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset('vendor')}}/bootstrap/js/bootstrap.bundle.min5.js"></script>
 
 </body>
 

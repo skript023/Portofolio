@@ -5,12 +5,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            @if (request()->page)
-                {{ $page = request()->page }}
-            @else
-                {{ $page = '' }}
-            @endif
-            @switch($page)
+            @switch(request()->page)
                 @case ('add')
                     @include('admin.user.add')
                 @break

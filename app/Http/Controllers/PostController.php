@@ -17,6 +17,7 @@ class PostController extends Controller
         //Str::slug($post->post_title);
         return view('artikel', [
             'posts' => post::with(['article_creator', 'article_category'])->simplePaginate(6),
+            'categories' => category::all()
         ]);
     }
 

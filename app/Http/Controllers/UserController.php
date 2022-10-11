@@ -56,6 +56,18 @@ class UserController extends Controller
         return false;
     }
 
+    public function is_admin()
+    {
+        if (auth()->check())
+        {
+            if (auth()->user()->user_position === 'administrator')
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function logout(Request $request)
     {
         Auth::logout();
@@ -104,10 +116,15 @@ class UserController extends Controller
     {
         if ($this->is_login())
         {
-            return view('admin.users_management', [
-                'users' => user::all(),
-            ]);
+            if ($this->is_admin())
+            {
+                return view('admin.users_management', [
+                    'users' => user::all(),
+                ]);
+            }
         }
+
+        return redirect('/');
     }
 
     public function delete_user(Request $request)
@@ -115,15 +132,19 @@ class UserController extends Controller
         $user = user::find($request->delete);
         if ($this->is_login())
         {
-            if (isset($user))
+            if ($this->is_admin())
             {
-                $user->delete();
-            }
-            else
-            {
-                return '<div class="alert alert-danger" role="alert"> User tidak ditemukan </div>';
+                if (isset($user))
+                {
+                    $user->delete();
+                }
+                else
+                {
+                    return '<div class="alert alert-danger" role="alert"> User tidak ditemukan </div>';
+                }
             }
         }
+        return redirect('/');
     }
 
     public function update_user(Request $request)
