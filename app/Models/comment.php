@@ -10,6 +10,7 @@ class comment extends Model
     use HasFactory;
 
     public $timestamps = false;
+    protected $primaryKey = 'id_comments';
 
     protected $fillable = [
         'id_comments',
@@ -27,6 +28,11 @@ class comment extends Model
 
     public function article_comment()
     {
-        return $this->hasOne(post::class, 'id_post', 'comment_post_id');
+        return $this->belongsTo(post::class);
+    }
+
+    public function article_creator()
+    {
+        return $this->hasOne(User::class, 'id_user', 'post_id_user');
     }
 }

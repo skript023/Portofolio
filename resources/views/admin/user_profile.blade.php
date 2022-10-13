@@ -1,5 +1,7 @@
 @extends('admin.template_helper.template_helper')
 @section('title', 'Profile')
+@section('breadcrumb', 'Profile')
+@section('header', 'Profile')
 
 @section('content')
 
@@ -13,10 +15,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-center mb-4">My Profile</h1>
             <div class="card border-0 shadow-lg">
                 <div class="card-body">
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="post" enctype="multipart/form-data" action="dashboard/user/update/{{ $user->id_user }}">
+                        @csrf
                         <div class="form-group">
                             <img src="{{ asset('profile') . '/' . $user->user_image }}" id="profile-img" alt="" class="img-fluid img-thumbnail mx-auto d-block rounded-circle">
                             <div class="col-md-3">

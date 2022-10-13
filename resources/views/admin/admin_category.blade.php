@@ -1,5 +1,7 @@
 @extends('admin.template_helper.template_helper')
 @section('title', 'Category Manager')
+@section('breadcrumb', 'Category Manager')
+@section('header', 'Category Manager')
 
 @section('content')
 

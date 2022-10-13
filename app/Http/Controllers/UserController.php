@@ -3,22 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\post;
+use App\Models\comment;
+use App\Models\contact;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
+        if (auth()->user()->user_position === 'administrator')
+        {
+            return view('admin.dashboard', [
+                'user_data' => User::all(),
+                'username' => auth()->user()->username,
+                'user_position' => auth()->user()->user_position,
+                'user_status' => auth()->user()->user_status,
+                'creation_date' => auth()->user()->user_date,
+                'user_image' => auth()->user()->user_image,
+                'total_user' => User::select('username')->get()->count(),
+                'total_contacts' => contact::select('name')->get()->count(),
+                'total_comment' => comment::with('article_comment')->count(),
+                'total_post' => post::where('post_id_user', auth()->user()->id_user)->get()->count()
+            ]);
+        }
+
         return view('admin.dashboard', [
             'user_data' => User::all(),
-            'username' => User::select('username')->where('username', 'Admin')->first(),
-            'user_position' => User::select('user_position')->get(),
-            'user_status' => User::select('user_status')->get(),
-            'creation_date' => User::select('user_date')->get(),
-            'user_image' => User::select('user_image')->get(),
-            'total_user' => User::select('username')->get()->sum('username')
+            'username' => auth()->user()->username,
+            'user_position' => auth()->user()->user_position,
+            'user_status' => auth()->user()->user_status,
+            'creation_date' => auth()->user()->user_date,
+            'user_image' => auth()->user()->user_image,
+            'total_comment' => comment::where('comment_post_id', Auth::user()->id_user)->get()->count(),
+            'total_post' => post::where('post_id_user', auth()->user()->id_user)->get()->count()
         ]);
     }
 
@@ -107,7 +128,6 @@ class UserController extends Controller
         } 
         catch (\Throwable $th) 
         {
-            dd($th);
             return redirect()->back();
         }
     }
@@ -166,7 +186,7 @@ class UserController extends Controller
             'user_image'
         ]);
 
-        $user = user::find($request->id_user);
+        $user = user::find($request->selected_user);
 
         if ($this->is_login())
         {
@@ -196,10 +216,16 @@ class UserController extends Controller
         }
     }
 
-    public function banned_user()
+    public function banned_user(Request $request)
     {
-        $user = User::select('username')->get();
+        $user = User::find($request->selected_user);
 
-        
+        if ($this->is_login())
+        {
+            if ($this->is_admin())
+            {
+                $user->delete();
+            }
+        }
     }
 }

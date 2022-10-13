@@ -32,10 +32,16 @@ Route::get('/categories/{category}', [PostController::class, 'post_by_category']
 Route::get('/dashboard', [UserController::class, 'dashboard'])->middleware('auth');
 Route::get('/dashboard/article', [PostController::class, 'user_articles'])->middleware('auth');
 Route::post('/dashboard/article', [PostController::class, 'search_article'])->middleware('auth');
+Route::post('/dashboard/article/update_status/{selected_article}', [UserController::class, 'publish_article']);
+Route::post('/dashboard/article/delete/{selected_article}', [UserController::class, 'delete_article']);
+Route::post('/dashboard/article/edit/{selected_article}', [PostController::class, 'update_article']);
+Route::get('/dashboard/article/{page}', [PostController::class, 'post_article']);
+Route::post('/dashboard/article/add_article', [PostController::class, 'add_article']);
 
 Route::get('/dashboard/user', [UserController::class, 'view_user'])->middleware('auth');
 Route::get('/dashboard/profile', [UserController::class, 'profile'])->middleware('auth');
 Route::post('/dashboard/user/add', [UserController::class, 'add_user'])->middleware('auth');
+Route::post('/dashboard/user/update/{selected_user}', [UserController::class, 'update_user']);
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 //Category
@@ -45,22 +51,24 @@ Route::post('/dashboard/category/edit/{edit_id}', [CategoryController::class, 'c
 
 //Contact
 Route::get('/dashboard/contact', [ContactController::class, 'admin_contact_manager'])->middleware('auth');
-Route::get('/contact', fn() => view('contact'));
+Route::get('/contact', [PostController::class, 'contact']);
 Route::post('/contact', [ContactController::class, 'contact_developer']);
 
 //Login
-Route::get('/login', fn() => view('login'))->name('login');
+Route::get('/login', [PostController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'login']);
 
 //Register
-Route::get('/register', fn() => view('register'));
+Route::get('/register', [PostController::class, 'register']);
 Route::post('/register', [UserController::class, 'add_user']);
 
 //comments
 Route::get('/dashboard/comments', [CommentController::class, 'index'])->middleware('auth');
+Route::get('/dashboard/approve/{selected_comment}', [CommentController::class, 'approve_comment'])->middleware('auth');
+Route::get('/dashboard/unapprove/{selected_comment}', [CommentController::class, 'unapprove_comment'])->middleware('auth');
 Route::post('/comment/{readmore}', [PostController::class, 'comment_article']);
 
 //About
-Route::get('/about', fn() => view('about'));
+Route::get('/about', [PostController::class, 'about']);
 
 

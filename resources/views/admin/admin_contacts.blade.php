@@ -1,14 +1,11 @@
 @extends('admin.template_helper.template_helper')
 @section('title', 'Contact Manager')
+@section('breadcrumb', 'Contact Manager')
+@section('header', 'Contact Manager')
 
 @section('content')
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="text-center">List Contact</h1>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card border-0 shadow-lg">

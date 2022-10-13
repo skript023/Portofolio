@@ -36,7 +36,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/dashboard/article?page=add" class="{{ request()->is('/dashboard/user?page=add') ? 'nav-link active' : 'nav-link' }}">
+                <a href="/dashboard/article/add" class="{{ request()->is('/dashboard/user?page=add') ? 'nav-link active' : 'nav-link' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Add Article</p>
                 </a>

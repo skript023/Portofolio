@@ -46,7 +46,7 @@
           <a href="{{asset('template_backend')}}/index3.html" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
+          <a href="/dashboard/contact" class="nav-link">Contact</a>
         </li>
       </ul>
 
@@ -221,12 +221,14 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Dashboard</h1>
+              <h1 class="m-0">@yield('header')</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                @if (!request()->is('/dashboard'))
+                  <li class="breadcrumb-item active">@yield('breadcrumb')</li>
+                @endif
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->

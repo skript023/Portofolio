@@ -1,5 +1,7 @@
 @extends('admin.template_helper.template_helper')
 @section('title', 'Articles Manager')
+@section('breadcrumb', 'Articles Manager')
+@section('header', 'Articles Manager')
 
 @section('content')
     @switch(request()->page)

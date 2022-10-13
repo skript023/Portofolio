@@ -1,12 +1,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-center">List Artikel</h1>
-        </div> 
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
             <div class="card boarder-0 shadow-lg">
                 <div class="card-body">
                     <form action="/dashboard/article" method="post">
@@ -14,7 +8,7 @@
                         <div class="form-group">
                             <input type="text" class="form-control" name="post_title" placeholder="Masukan Judul Aritkel Anda...">
                             <span class="input-group-btn">
-                                <button class="btn btn-dark" name="cariArtikel" type="submit">
+                                <button class="btn btn-dark mt-3" name="cariArtikel" type="submit">
                                     Cari Artikel
                                 </button>
                             </span>
@@ -64,7 +58,6 @@
             @endif
         @endforeach
     </div>
-    
 @else
     <div class="row">
         @foreach($posts as $post)
@@ -84,10 +77,10 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/read/{{ $post->id_post }}">View Artikel</a>
-                                    <a class="dropdown-item" href="article?delete={{ $post->id_post }}">Delete Artikel</a>
-                                    <a class="dropdown-item" href="article?page=edit&p_id={{ $post->id_post }}">Edit Artikel</a>
+                                    <a class="dropdown-item" href="/dashboard/article/delete/{{ $post->id_post }}">Delete Artikel</a>
+                                    <a class="dropdown-item" href="/dashboard/article?page=edit&selected_article={{ $post->id_post }}">Edit Artikel</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="artikel.php?update_status={{ $post->id_post }}">
+                                    <a class="dropdown-item" href="/dashboard/article/update_status/{{ $post->id_post }}" method="post">
                                         <button class="btn btn-info">{{ $post->post_status ? "Publish article" : "Unpublish article" }}</button>
                                     </a>
                                 </div>

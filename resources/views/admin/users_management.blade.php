@@ -1,5 +1,7 @@
 @extends('admin.template_helper.template_helper')
 @section('title', 'User Management')
+@section('breadcrumb', 'User Management')
+@section('header', 'User Management')
 
 @section('content')
 <div class="container-fluid">
